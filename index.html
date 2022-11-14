@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <h1>API_REQUEST_MOEDAS</h1>
+    <div class="main">
+        <p>Dolar:<strong class="dolar"></strong></p><br>
+        <p>Euro:<strong class="euro"></strong></p><br>
+        <p>Bitcoin:<strong class="bitcoin"></strong></p><br>
+    </div>
+
+    <div class="info">
+    <h2>caso a api esteja desatualizada troque</h2>    
+    <p>troque a api aqui! <a href="https://docs.awesomeapi.com.br/api-de-moedas">https://docs.awesomeapi.com.br/api-de-moedas</a></p>
+    </div>    
+<script>
+        function fazGet(url){
+            let request = new XMLHttpRequest()
+            request.open("GET", url, false)
+            request.send()
+            return request.responseText
+    };
+
+    function main(){
+        let data = fazGet("http://economia.awesomeapi.com.br/json/last/USD-BRL,EUR-BRL,BTC-BRL")
+        let usuario = JSON.parse(data);// assim fica tudo como objeto javascript
+        console.log(usuario['USDBRL']['bid']);// o dolar 
+        
+        
+        var v_dolar = document.querySelector(".dolar");
+        var v_euro = document.querySelector(".euro"); 
+        var v_bitcoin = document.querySelector(".bitcoin");  
+
+        var dolar = JSON.stringify(usuario['USDBRL']['bid']);
+        var euro = JSON.stringify(usuario['EURBRL']['bid']);
+        var bitcoin = JSON.stringify(usuario['BTCBRL']['bid']);
+
+        v_dolar.textContent = dolar;
+        v_euro.textContent = euro;
+        v_bitcoin.textContent = bitcoin;
+
+    
+    };
+
+    main()
+</script>
+</body>
+</html>
